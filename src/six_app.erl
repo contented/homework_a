@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc homework_a public API
+%% @doc six public API
 %% @end
 %%%-------------------------------------------------------------------
 
--module(homework_a_app).
+-module(six_app).
 
 -behaviour(application).
 
@@ -22,7 +22,7 @@ start(_StartType, _StartArgs) ->
     cowboy:start_http(my_http_listener, 100, [{port, 8080}],
         [{env, [{dispatch, Dispatch}]}]
     ),
-    homework_a_sup:start_link().
+    six_sup:start_link().
 
 %%--------------------------------------------------------------------
 stop(_State) ->

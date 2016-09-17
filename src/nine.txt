@@ -1,0 +1,15 @@
+Delimiter $$
+create procedure ownership_chain ( IN prod_id int)
+
+begin
+
+      select participant_id from assignment where product_id=prod_id
+      order by action, ts
+
+end$$
+
+Delimiter ;
+
+patch:
+
+Update product set current_owner_id=tpi from (Select  a1.participant_id tpi,p from assignment a1 join (Select product_id as p,Max(ts) as mts from assignment group by product_id) as t1 on a1.product_id=p and a1.ts=mts) as t2 where product.id=p;
